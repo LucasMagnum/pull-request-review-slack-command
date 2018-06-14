@@ -1,3 +1,4 @@
+import os
 import random
 
 from aiohttp import web
@@ -64,4 +65,4 @@ app.add_routes([
 ])
 
 if __name__ == '__main__':
-    web.run_app(app, port=8000)
+    web.run_app(app, port=os.getenv('PORT', 8000))
