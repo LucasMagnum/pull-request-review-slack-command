@@ -1,4 +1,4 @@
-Slack Reviewers - Command
+Slack Review - Command
 =========================
 
 This is a slack command used to retrieve random reviewers for a pull request.
@@ -10,6 +10,7 @@ This command reads the members of the channel where its called and return
 a random number of people to review the pull request.
 
 Example:
+    
     >> /review http://github.com/lucasmagnum/slack-reviewers/pull/01
 
     Hey @user2, @user3, @user4 could you review this Pull Request?
