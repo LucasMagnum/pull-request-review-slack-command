@@ -1,10 +1,9 @@
-import functools
 import random
 
 from aiohttp import web
 
 from members import get as get_members
-from validators import validate_request
+from validators import validate
 
 # TODO: This should be provided by configuration
 number_of_reviewers = 3
@@ -14,7 +13,8 @@ ignore_list = [
 
 
 async def handle_command(request):
-    data, error = await validate_request(request)
+    body = await request.post()
+    data, error = validate(body)
 
     if not error:
         text = data['text']
@@ -28,7 +28,7 @@ async def handle_command(request):
 
             return web.json_response({
                 "text": f"Hey {reviewers_text} could you review this Pull Request?",
-                "response_type": "ephemeral",
+                "response_type": "in_channel",
                 "attachments": [
                     {
                         "text": f"Pull request {text}"
@@ -63,4 +63,5 @@ app.add_routes([
     web.post('/', handle_command)
 ])
 
-web.run_app(app, port=8000)
+if __name__ == '__main__':
+    web.run_app(app, port=8000)
