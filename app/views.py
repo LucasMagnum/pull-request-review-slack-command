@@ -12,10 +12,10 @@ async def handle_command(request):
 
     if not error:
         text = data['text']
-        members = await members.get(channel_id=data['channel'])
+        members_list = await members.get(channel_id=data['channel'])
 
-        if members:
-            reviewers = get_random_reviewers(members, exclude=[data['user']])
+        if members_list:
+            reviewers = get_random_reviewers(members_list, exclude=[data['user']])
             reviewers_text = ', '.join(
                 f"<@{reviewer}>" for reviewer in reviewers
             )
