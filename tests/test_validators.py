@@ -1,17 +1,17 @@
 import pytest
 
-from app import validators
+from app import config, validators
 
 
 @pytest.fixture(scope="module", autouse=True)
 def setup_teardown(*args, **kwargs):
-    validators.allowed_channels.append('test_channel')
-    validators.allowed_domains.append('test_company')
+    config.ALLOWED_CHANNELS.append('test_channel')
+    config.ALLOWED_DOMAINS.append('test_company')
 
     yield
 
-    validators.allowed_channels.remove('test_channel')
-    validators.allowed_domains.remove('test_company')
+    config.ALLOWED_CHANNELS.remove('test_channel')
+    config.ALLOWED_DOMAINS.remove('test_company')
 
 
 def test_validate_return_error_with_invalid_domains():
@@ -55,5 +55,3 @@ def test_validate_return_data_with_correct_payload():
         'channel': payload['channel_id']
     }
     assert error is None
-
-

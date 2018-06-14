@@ -1,6 +1,4 @@
-# TODO: This should be provided by configuration
-allowed_domains = ['fyndiq']
-allowed_channels = ['friendly-pr-reviewers', 'backend_hub', 'directmessage']
+from app import config
 
 
 def validate(data):
@@ -26,11 +24,11 @@ def validate(data):
 
     """
     team_domain = data.get('team_domain')
-    if team_domain not in allowed_domains:
+    if team_domain not in config.ALLOWED_DOMAINS:
         return {}, f'Your domain {team_domain} is not allowed to use this command'
 
     channel_name = data.get('channel_name')
-    if channel_name not in allowed_channels:
+    if channel_name not in config.ALLOWED_CHANNELS:
         return {}, f'The channel {channel_name} is not allowed to use this command'
 
     text = data.get('text')
