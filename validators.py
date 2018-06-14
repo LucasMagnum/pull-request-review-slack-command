@@ -10,18 +10,18 @@ async def validate_request(request):
     if team_domain not in allowed_domains:
         return {}, f'Your domain {team_domain} is not allowed to use this command'
 
+    channel_id = body.get('channel_id')
     channel_name = body.get('channel_name')
     if channel_name not in allowed_channels:
         return {}, f'The channel {channel_name} is not allowed to use this command'
 
-    request_user = body.get('user_id')
+    user_id = body.get('user_id')
     text = body.get('text')
-
-    if not text.startswith("http"):
+    if not text.startswith("<http"):
         return {}, f'You need to provide a pull request link'
 
     return {
         'text': text,
-        'user': request_user,
-        'channel_name': channel_name
+        'user': user_id,
+        'channel': channel_id
     }, None
